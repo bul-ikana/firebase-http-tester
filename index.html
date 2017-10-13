@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script
+		src="https://code.jquery.com/jquery-3.2.1.min.js"
+		integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		crossorigin="anonymous">
+	</script>
+	<style type="text/css">
+		html {
+		  position: relative;
+		  min-height: 100%;
+		}
+		body {
+		  margin-bottom: 60px;
+		}
+		.footer {
+		  position: absolute;
+		  bottom: 0;
+		  width: 100%;
+		  height: 60px;
+		  line-height: 60px;
+		  background-color: #f5f5f5;
+		}
+	</style>
+	<title>Firebase test</title>
+</head>
+<body>
+	<div class="container">
+		<h1>FIREBASE HTTP TESTER</h1>
+		<form id="fbform">
+			<div class="form-group">
+				<label for="SERVER_KEY">SERVER_KEY</label>
+				<textarea form ="fbform" id="server_key" name="SERVER_KEY" cols="35" wrap="soft" class="form-control"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="FCM_TOKEN">FCM_TOKEN</label>
+				<textarea form ="fbform" id="fcm_token" name="FCM_TOKEN" cols="35" wrap="soft" class="form-control"></textarea>
+			</div>
+
+			<div class="form-group">
+				<label for="MESSAGE">MESSAGE</label>
+				<textarea form ="fbform" id="message" name="MESSAGE" cols="35" wrap="soft" class="form-control"></textarea>
+			</div>
+
+		</form>
+			<button id="submit" class="btn btn-default">TEST</button>
+		<hr>
+		<h3>Result:</h3>
+		<p id="result"></p>
+	</div>
+	<footer class="footer">
+      <div class="container">
+        <span class="pull-right"><img src="image.png" style="max-width:25px; max-height: 25px; border-radius:5px;"> ❤ 🍺 🍻</span>
+      </div>
+    </footer>
+</body>
+
+<script type="text/javascript">
+	$('#submit').click(
+		function (event) {
+			console.log("test");
+			var url = "https://fcm.googleapis.com/fcm/send"
+			$.ajax({
+				type: "POST",
+				url: url,
+				headers: {
+					"Authorization": "key=" + $("#server_key").val(),
+					"Content-Type": "application/json"
+				},
+				data: JSON.stringify({
+					"to": $("#fcm_token").val(),
+					"notification": {
+						"body": $("#message").val()
+					},
+				}),
+				success: function (data) {
+					console.log(data);
+					$("#result").html(JSON.stringify(data, null, 2));
+				}
+			});
+		}
+	);
+</script>
+</html>
