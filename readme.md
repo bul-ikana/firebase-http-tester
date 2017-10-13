@@ -4,5 +4,5 @@ A simple form to test Firebase Cloud Messaging using their HTTP protocol. Single
 
 It uses jquery, bootstrap css, and a bit of estra css for my fancy footer.
 
-Check it [here](http://bul-ikana.github.io/firebase-http-tester)
+Check it [here](https://bul-ikana.github.io/firebase-http-tester/)
 
